@@ -11,7 +11,7 @@ class Property extends PostController
         $propertyAddress = $_POST['propertyAddress'];
         $location = $_POST['location'];
         $description = $_POST['description'];
-        $numberOfUnits = $_POST['numberOfUnits'];
+        $numberOfTenants = $_POST['numberOfTenants'];
         $propertySize = $_POST['propertySize'];
         $furnishingStatus = $_POST['furnishingStatus'];
         $propertyManager = $_POST['propertyManager'];
@@ -25,7 +25,7 @@ class Property extends PostController
             $propertyAddress,
             $location,
             $description,
-            $numberOfUnits,
+            $numberOfTenants,
             $propertySize,
             $furnishingStatus,
             $propertyManager,

@@ -52,7 +52,7 @@ $uuid = $propertyDetails['uuid'];
                                             <div class="wizard-step-1 d-block">
                                                 <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Name/Title</label>
+                                                        <label class="form-label required">Property Name/Title/Phase</label>
                                                         <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
@@ -118,8 +118,8 @@ $uuid = $propertyDetails['uuid'];
                                                         <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Number of Units</label>
-                                                        <input type="number" name="numberOfUnits" class="form-control" value="<?= $propertyDetails['numberOfUnits'] ?>" placeholder="e.g., 10" required>
+                                                        <label class="form-label required">Number of Tenants</label>
+                                                        <input type="number" name="numberOfTenants" class="form-control" value="<?= $propertyDetails['numberOfTenants'] ?>" placeholder="e.g., 10" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Size</label>
@@ -251,7 +251,7 @@ $uuid = $propertyDetails['uuid'];
             propertyAddress: $("textarea[name='propertyAddress']").val(),
             location: $("input[name='location']").val(),
             description: $("textarea[name='description']").val(),
-            numberOfUnits: $("input[name='numberOfUnits']").val(),
+            numberOfTenants: $("input[name='numberOfTenants']").val(),
             propertySize: $("input[name='propertySize']").val(),
             furnishingStatus: $("select[name='furnishingStatus']").val(),
             propertyManager: $('#propertyManager').val(),
@@ -302,9 +302,9 @@ $uuid = $propertyDetails['uuid'];
                 error += 'Location is required\n';
                 $("input[name='location']").focus();
             }
-            if (!formData.numberOfUnits) {
-                error += 'Number of Units is required\n';
-                $("input[name='numberOfUnits']").focus();
+            if (!formData.numberOfTenants) {
+                error += 'Number of Tenants is required\n';
+                $("input[name='numberOfTenants']").focus();
             }
             if (!formData.propertySize) {
                 error += 'Property Size is required\n';

@@ -17,7 +17,7 @@ class Users extends tableDataObject
     public static function listUsers() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `compusers` where `status` = 1 ORDER BY `createdAt` DESC, `firstName`, `lastName`";
+        $getList = "SELECT * FROM `compusers` where `status` = 1 AND (`accessLevel` = 'Super Administrator' OR `accessLevel` = 'Administrator')  ORDER BY `createdAt` DESC, `firstName`, `lastName`";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;

@@ -32,7 +32,7 @@ extract($data);
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Category</span> <strong class="text-black"> <?= Tools::categoryName($propertyDetails['propertyCategory']) ?> </strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Address</span> <strong class="text-black px-3"> <?= $propertyDetails['propertyAddress'] ?> </strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Location</span> <strong class="text-black"><?= $propertyDetails['location'] ?></strong></li>
-                                                        <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Units</span> <strong class="text-black"><?= $propertyDetails['numberOfUnits'] ?></strong></li>
+                                                        <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Tenants</span> <strong class="text-black"><?= $propertyDetails['numberOfTenants'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Property Size</span> <strong class="text-black"><?= $propertyDetails['propertySize'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Furnishing Status</span> <strong class="text-black"><?= $propertyDetails['furnishingStatus'] ?></strong></li>
                                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Facilities</span> <strong class="text-black px-3"><?= $propertyDetails['facilities'] ?></strong></li>
@@ -115,7 +115,7 @@ extract($data);
                                             <div class="col-xl-4 col-lg-4 col-sm-12">
                                                 <div class="card overflow-hidden">
                                                     <div class="card-header">
-                                                        <h4 class="card-title">Rental Details</h4> 
+                                                        <h4 class="card-title">Tenants</h4> 
                                                     </div>
                                                     <div class="card-body">
                                                         

@@ -14,7 +14,7 @@ extract($data);
 										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Category</span> <strong class="text-black"> <?= $propertyCategory ?>	</strong></li>
 										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Address</span>&nbsp;&nbsp;&nbsp;&nbsp; <strong class="text-black"> <?= $propertyAddress ?> </strong></li>
 										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Location</span> <strong class="text-black"><?= $location ?></strong></li>
-										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Units</span> <strong class="text-black"><?= $numberOfUnits ?></strong></li>
+										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Number of Tenants</span> <strong class="text-black"><?= $numberOfTenants ?></strong></li>
 										<li class="list-group-item d-flex justify-content-between"><span class="mb-0">Property Size</span> <strong class="text-black"><?= $propertySize ?></strong></li>
                                         <li class="list-group-item d-flex justify-content-between"><span class="mb-0">Furnishing Status</span> <strong class="text-black"><?= $furnishingStatus ?></strong></li>
                                         <li class="list-group-item d-flex justify-content-between">

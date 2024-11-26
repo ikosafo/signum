@@ -18,41 +18,11 @@ $uuid = $propertyDetails['uuid'];
                             <div class="card-header">
                                 <h4 class="card-title">Edit Property Details of <strong><?= $propertyDetails['propertyName'] ?></strong></h4>
                             </div>
-                            <div class="card-body wizard-box">
+                            <div class="card-body">
 								<div class="wizard-step-container">
-                                        <ul class="wizard-steps">
-                                            <li class="step-container step-1 active">
-                                                <div class="media">
-                                                    <div class="step-icon">
-                                                        <i data-feather="check"></i>
-                                                        <span>1</span>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5>Property Details</h5>
-                                                        <h6>Get started with the property</h6>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                            <li class="step-container step-2">
-                                                <div class="media">
-                                                    <div class="step-icon">
-                                                        <i data-feather="check"></i>
-                                                        <span>2</span>
-                                                    </div>
-                                                    <div class="media-body">
-                                                        <h5>Rental Information</h5>
-                                                        <h6>Enter rental details</h6>
-                                                    </div>
-                                                </div>
-                                            </li>
-                                           
-                                        </ul>
-
-										<div class="wizard-form-details log-in">
-                                            <div class="wizard-step-1 d-block">
-                                                <form class="row" id="needs-validation" novalidate="" autocomplete="off">
+                                <form class="row" id="needs-validation" novalidate="" autocomplete="off">
                                                     <div class="mb-3 col-md-4 col-sm-12">
-                                                        <label class="form-label required">Property Name/Title</label>
+                                                        <label class="form-label required">Property Name/Title/Phase</label>
                                                         <input type="text" name="propertyName" class="form-control" value="<?= $propertyDetails['propertyName'] ?>" placeholder="Green Valley Apartments" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
@@ -107,8 +77,8 @@ $uuid = $propertyDetails['uuid'];
                                                         </select>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Number of Units</label>
-                                                        <input type="number" name="numberOfUnits" class="form-control" value="<?= $propertyDetails['numberOfUnits'] ?>" placeholder="e.g., 10" required>
+                                                        <label class="form-label required">Number of Tenants</label>
+                                                        <input type="number" name="numberOfTenants" class="form-control" value="<?= $propertyDetails['numberOfTenants'] ?>" placeholder="e.g., 10" required>
                                                     </div>
                                                     <div class="form-group col-md-4 col-sm-12">
                                                         <label class="form-label required">Property Size</label>
@@ -137,68 +107,11 @@ $uuid = $propertyDetails['uuid'];
                                                         <textarea name="description" class="form-control" placeholder="Brief description of the property" rows="3"><?= $propertyDetails['description'] ?></textarea>
                                                     </div>
                                                    
-                                                    
-                                                   
-                                                    <div class="next-btn text-end col-sm-12">
-                                                        <button type="submit" id="saveProperty" class="btn btn-primary btn-sm">Next <i class="fas fa-arrow-right ms-2"></i></button>
+                                                    <div class="next-btn py-4 d-flex col-sm-12 justify-content-center">
+                                                        <button type="submit" id="saveProperty" class="btn btn-warning next2 btn-sm">Update</button>
                                                     </div>
                                                 </form>
-
-                                            </div>
-                                            <div class="wizard-step-2 d-none">
-                                               <form class="row" id="needs-validation2" novalidate="" autocomplete="off">
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Number of bedroom(s)</label>
-                                                        <select name="numberRooms" class="form-control" id="numberRooms" multiple="multiple">
-                                                            <option value="1" <?= (strpos($propertyDetails['numberRooms'], '1') !== false) ? 'selected' : '' ?>>1</option>
-                                                            <option value="2" <?= (strpos($propertyDetails['numberRooms'], '2') !== false) ? 'selected' : '' ?>>2</option>
-                                                            <option value="3" <?= (strpos($propertyDetails['numberRooms'], '3') !== false) ? 'selected' : '' ?>>3</option>
-                                                            <option value="4" <?= (strpos($propertyDetails['numberRooms'], '4') !== false) ? 'selected' : '' ?>>4</option>
-                                                            <option value="5" <?= (strpos($propertyDetails['numberRooms'], '5') !== false) ? 'selected' : '' ?>>5</option>
-                                                            <option value="6" <?= (strpos($propertyDetails['numberRooms'], '6') !== false) ? 'selected' : '' ?>>6</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Amount (use commas to match room count)</label>
-                                                        <input type="text" class="form-control" id="rentAmount" placeholder="Eg. 3200.50,5400.00,9400.34" value="<?= $propertyDetails['rentAmount'] ?>" required onkeypress="allowNumbersCommasDecimals(event)">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Deposit Amount</label>
-                                                        <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="depositAmount" placeholder="Enter deposit amount" value="<?= $propertyDetails['depositAmount'] ?>">
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Lease Period</label>
-                                                        <input type="text" class="form-control" id="leasePeriod" placeholder="Enter lease period (e.g., 1 year)" value="<?= $propertyDetails['leasePeriod'] ?>" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Availability Date</label>
-                                                        <input type="date" class="form-control" placeholder="Select Date" id="availabilityDate" value="<?= $propertyDetails['availabilityDate'] ?>" required>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label">Utilities Included</label>
-                                                        <select class="default-select form-control wide" id="utilitiesIncluded">
-                                                            <option value="" disabled>Select</option>
-                                                            <option value="Yes" <?= (strpos($propertyDetails['utilitiesIncluded'], 'Yes') !== false) ? 'selected' : '' ?>>Yes</option>
-                                                            <option value="No" <?= (strpos($propertyDetails['utilitiesIncluded'], 'No') !== false) ? 'selected' : '' ?>>No</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="form-group col-md-4 col-sm-12">
-                                                        <label class="form-label required">Rent Payment Frequency</label>
-                                                        <select class="default-select form-control wide" id="paymentFrequency" required>
-                                                        <option value="" disabled>Select Payment Frequency</option>
-                                                            <option value="Monthly" <?= (strpos($propertyDetails['paymentFrequency'], 'Monthly') !== false) ? 'selected' : '' ?>>Monthly</option>
-                                                            <option value="Quarterly" <?= (strpos($propertyDetails['paymentFrequency'], 'Quarterly') !== false) ? 'selected' : '' ?>>Quarterly</option>
-                                                            <option value="Yearly" <?= (strpos($propertyDetails['paymentFrequency'], 'Yearly') !== false) ? 'selected' : '' ?>>Yearly</option>
-                                                        </select>
-                                                    </div>
-                                                    <div class="next-btn d-flex col-sm-12">
-                                                        <button type="button" class="btn btn-default prev1 btn-sm"><i class="fas fa-arrow-left me-2"></i> Previous</button>
-                                                        <button type="submit" id="saveRentalInfo" class="btn btn-success btn-sm">Update <i class="fas fa-arrow-right ms-2"></i></button>
-                                                    </div>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -222,7 +135,6 @@ $uuid = $propertyDetails['uuid'];
         }
     });
     
-    $("#availabilityDate").flatpickr();
     $('#facilities').SumoSelect({
         placeholder: 'Select options',
         selectAll: true,
@@ -256,7 +168,7 @@ $uuid = $propertyDetails['uuid'];
             propertyAddress: $("textarea[name='propertyAddress']").val(),
             location: $("input[name='location']").val(),
             description: $("textarea[name='description']").val(),
-            numberOfUnits: $("input[name='numberOfUnits']").val(),
+            numberOfTenants: $("input[name='numberOfTenants']").val(),
             propertySize: $("input[name='propertySize']").val(),
             furnishingStatus: $("select[name='furnishingStatus']").val(),
             propertyManager: $('#propertyManager').val(),
@@ -270,12 +182,15 @@ $uuid = $propertyDetails['uuid'];
             //alert(response);
 
             if (response == 1 || response == 3) {
-                $("#needs-validation").addClass("was-validated");  
-                $('.step-1').removeClass('active').addClass('disabled');
-                $('.step-2').addClass('active');
-                $('.wizard-step-2').addClass('d-block').removeClass('d-none');
-                $('.wizard-step-1').removeClass('d-block').addClass('d-none');
-            }
+                    $.notify("Property saved", {
+                        position: "top center",
+                        className: "success"
+                    });
+
+                    setTimeout(function() {
+                        location.reload();
+                    }, 500); 
+                }
             else {
                 $.notify("Property already exists", {
                     position: "top center",
@@ -307,9 +222,9 @@ $uuid = $propertyDetails['uuid'];
                 error += 'Location is required\n';
                 $("input[name='location']").focus();
             }
-            if (!formData.numberOfUnits) {
-                error += 'Number of Units is required\n';
-                $("input[name='numberOfUnits']").focus();
+            if (!formData.numberOfTenants) {
+                error += 'Number of Tenants is required\n';
+                $("input[name='numberOfTenants']").focus();
             }
             if (!formData.propertySize) {
                 error += 'Property Size is required\n';
@@ -334,90 +249,6 @@ $uuid = $propertyDetails['uuid'];
         saveForm(formData, url, successCallback, validateForm);
     });
 
-
-     // Rental info
-     $("#saveRentalInfo").on("click", function(event) {
-        event.preventDefault(); 
-
-        var rentData = {
-            rentAmount: $("#rentAmount").val(),
-            depositAmount: $("#depositAmount").val(),
-            leasePeriod: $("#leasePeriod").val(),
-            availabilityDate: $("#availabilityDate").val(),
-            utilitiesIncluded: $("#utilitiesIncluded").val(),
-            paymentFrequency: $("#paymentFrequency").val(),
-            uuid: '<?php echo $uuid; ?>',
-            numberRooms: $("#numberRooms").val()
-        };
-
-        var url = urlroot + "/property/saveRentalDetails";
-
-        var successCallback = function(response) {
-            response = JSON.parse(response);
-            $.notify("Property saved", {
-                position: "top center",
-                className: "success"
-            });
-
-            setTimeout(function() {
-                location.reload();
-            }, 500); 
-        };
-
-        var validateRentalForm = function(rentData) {
-            var error = '';
-
-             // Ensure rentData.numberRooms and rentData.rentAmount are treated as strings
-            var numberRoomsArr = rentData.numberRooms ? String(rentData.numberRooms).split(',') : [];
-            var rentAmountsArr = rentData.rentAmount ? String(rentData.rentAmount).split(',') : [];
-
-            var numberRoomsCount = numberRoomsArr.length;
-            var rentAmountsCount = rentAmountsArr.length;
-
-            // Validate that both fields are provided
-            if (!rentData.numberRooms || numberRoomsCount === 0) {
-                error += 'Number of bedrooms is required\n';
-                $('#numberRooms').focus();
-            }
-
-            if (!rentData.rentAmount || rentAmountsCount === 0) {
-                error += 'Rent Amount is required\n';
-                $("#rentAmount").focus();
-            }
-
-            // Ensure the number of rooms matches the number of rent amounts
-            if (numberRoomsCount !== rentAmountsCount) {
-                error += `The number of rent amounts (${rentAmountsCount}) must match the number of bedrooms selected (${numberRoomsCount}).\n`;
-                $("#rentAmount").focus();
-            }
-
-            if (!rentData.depositAmount) {
-                error += 'Deposit Amount is required\n';
-                $("#depositAmount").focus();
-            }
-            if (!rentData.leasePeriod) {
-                error += 'Lease Period is required\n';
-                $("#leasePeriod").focus();
-            }
-            if (!rentData.availabilityDate) {
-                error += 'Availability Date is required\n';
-                $("#availabilityDate").focus();
-            }
-            if (!rentData.utilitiesIncluded) {
-                error += 'Utilities status is required\n';
-                $("#utilitiesIncluded").focus();
-            }
-            if (!rentData.paymentFrequency) {
-                error += 'Payment Frequency is required\n';
-                $("#paymentFrequency").focus();
-            }
-
-            return error;
-        };
-
-        saveForm(rentData, url, successCallback, validateRentalForm);
-            
-    });
 
 
 </script>

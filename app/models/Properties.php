@@ -10,7 +10,7 @@ class Properties extends tableDataObject
                                     $propertyAddress,
                                     $location,
                                     $description,
-                                    $numberOfUnits,
+                                    $numberOfTenants,
                                     $propertySize,
                                     $furnishingStatus,
                                     $propertyManager,
@@ -44,7 +44,7 @@ class Properties extends tableDataObject
                 `propertyAddress` = :propertyAddress,
                 `location` = :location,
                 `description` = :description,
-                `numberOfUnits` = :numberOfUnits,
+                `numberOfTenants` = :numberOfTenants,
                 `propertySize` = :propertySize,
                 `furnishingStatus` = :furnishingStatus,
                 `propertyManager` = :propertyManager,
@@ -59,7 +59,7 @@ class Properties extends tableDataObject
                 $healthdb->bind(':propertyAddress', $propertyAddress);
                 $healthdb->bind(':location', $location);
                 $healthdb->bind(':description', $description);
-                $healthdb->bind(':numberOfUnits', $numberOfUnits);
+                $healthdb->bind(':numberOfTenants', $numberOfTenants);
                 $healthdb->bind(':propertySize', $propertySize);
                 $healthdb->bind(':furnishingStatus', $furnishingStatus);
                 $healthdb->bind(':propertyManager', $propertyManagerString);
@@ -86,8 +86,8 @@ class Properties extends tableDataObject
             } else {
                 // Insert new property if no conflicts
                 $query = "INSERT INTO `properties`
-                    (`propertyName`, `propertyType`, `propertyCategory`, `propertyAddress`, `location`, `description`, `numberOfUnits`, `propertySize`, `furnishingStatus`, `propertyManager`, `facilities`, `createdAt`, `uuid`)
-                    VALUES (:propertyName, :propertyType, :propertyCategory, :propertyAddress, :location, :description, :numberOfUnits, :propertySize, :furnishingStatus, :propertyManager, :facilities, NOW(), :uuid)";
+                    (`propertyName`, `propertyType`, `propertyCategory`, `propertyAddress`, `location`, `description`, `numberOfTenants`, `propertySize`, `furnishingStatus`, `propertyManager`, `facilities`, `createdAt`, `uuid`)
+                    VALUES (:propertyName, :propertyType, :propertyCategory, :propertyAddress, :location, :description, :numberOfTenants, :propertySize, :furnishingStatus, :propertyManager, :facilities, NOW(), :uuid)";
 
                     $healthdb->prepare($query);
 
@@ -98,7 +98,7 @@ class Properties extends tableDataObject
                     $healthdb->bind(':propertyAddress', $propertyAddress);
                     $healthdb->bind(':location', $location);
                     $healthdb->bind(':description', $description);
-                    $healthdb->bind(':numberOfUnits', $numberOfUnits);
+                    $healthdb->bind(':numberOfTenants', $numberOfTenants);
                     $healthdb->bind(':propertySize', $propertySize);
                     $healthdb->bind(':furnishingStatus', $furnishingStatus);
                     $healthdb->bind(':propertyManager', $propertyManagerString);
@@ -513,7 +513,7 @@ class Properties extends tableDataObject
     public static function listProperties() {
         global $healthdb;
 
-        $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY updatedAt DESC";
+        $getList = "SELECT * FROM `properties` where `status` = 1 ORDER BY createdAt DESC";
         $healthdb->prepare($getList);
         $resultList = $healthdb->resultSet();
         return $resultList;
@@ -574,7 +574,7 @@ class Properties extends tableDataObject
             'propertyAddress' => $resultRec->propertyAddress,
             'location' => $resultRec->location,
             'description' => $resultRec->description,
-            'numberOfUnits' => $resultRec->numberOfUnits,
+            'numberOfTenants' => $resultRec->numberOfTenants,
             'propertySize' => $resultRec->propertySize,
             'furnishingStatus' => $resultRec->furnishingStatus,
             'propertyManager' => $resultRec->propertyManager,
