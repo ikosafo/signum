@@ -12,7 +12,10 @@ class Pages extends Controller
     public function index()
     {
         new Guard();
-        $this->view("pages/index");
+        $uid = $_SESSION['uid'];
+        $uuid = Tools::getUUIDbyid($uid);
+        $userDetails = Users::userDetails($uuid);
+        $this->view("pages/index",['userDetails' => $userDetails]);
     }
 
 

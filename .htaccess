@@ -1,20 +1,21 @@
-# Enable Rewrite Engine
-RewriteEngine On
+<IfModule mod_rewrite.c>
+  RewriteEngine On
 
-# Ensure DirectoryIndex points to the public/index.php file
-DirectoryIndex public/index.php
+  # Deny direct access to sensitive directories (like `vendor`)
+  RewriteRule ^(vendor)($|/) - [L]
 
-# Redirect all requests to index.php in the public folder
-RewriteCond %{REQUEST_FILENAME} !-f
-RewriteCond %{REQUEST_FILENAME} !-d
-RewriteRule ^(.*)$ public/index.php [L,QSA]
+  # Ensure public directory is prioritized if the file exists
+  RewriteRule ^public/ - [NC,L]
+  RewriteCond %{DOCUMENT_ROOT}/public/$1 -f [NC]
+  RewriteRule ^(.*)$ /public/$1 [L]
 
-# Handle common file types (optional, improves performance for assets)
-<FilesMatch "\.(html|htm|js|css|jpg|jpeg|png|gif|ico|svg|woff|woff2|ttf|otf|eot|webp|mp4|ogg|ogv|webm|mp3|wav|txt|xml|json)$">
-    Header set Cache-Control "max-age=2592000, public"
-</FilesMatch>
+  # Redirect all other requests to index.php with query string
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php?url=$1 [QSA,L]
+</IfModule>
 
-# Prevent access to the .htaccess file itself
-<Files .htaccess>
-    Require all denied
-</Files>
+<IfModule !mod_rewrite.c>
+  # If mod_rewrite is not available, display an error or redirect
+  ErrorDocument 404 "mod_rewrite module is not enabled on this server."
+</IfModule>

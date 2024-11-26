@@ -91,7 +91,7 @@ class Clients extends tableDataObject
             return;
         }
 
-        $chkUsername = "SELECT * FROM `users` WHERE `username` = '$emailAddress' AND `uuid` != '$uuid'";
+        $chkUsername = "SELECT * FROM `compusers` WHERE `username` = '$emailAddress' AND `uuid` != '$uuid'";
         $healthdb->prepare($chkUsername);
         $resultUsername = $healthdb->singleRecord();
 
@@ -197,7 +197,7 @@ class Clients extends tableDataObject
                     <p>Thank you,<br>The Signum Properties Team</p>";
 
                     SendEmail::compose($emailAddress, $subject, $message);
-                    $insertUser = "INSERT INTO `users` (`dateBirth`,`address`,`emailaddress`,`phoneNumber`,`altPhoneNumber`,`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$birthDate','$residentialAddress','$emailAddress','$phoneNumber','$altPhoneNumber','$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
+                    $insertUser = "INSERT INTO `compusers` (`dateBirth`,`address`,`emailaddress`,`phoneNumber`,`altPhoneNumber`,`username`, `password`, `uuid`, `createdAt`,`accessLevel`) VALUES ('$birthDate','$residentialAddress','$emailAddress','$phoneNumber','$altPhoneNumber','$emailAddress', '" . md5($password) . "', '$uuid', NOW(), 'Client')";
                     $healthdb->prepare($insertUser);
                     $healthdb->execute();
   
@@ -434,12 +434,12 @@ class Clients extends tableDataObject
 
         $encrPassword = md5($newPassword);
         $encNewPassword = md5($currentPassword);
-        $chkUser = "SELECT * FROM `users` WHERE `uuid` = '$uuid' AND `password` =  '$encNewPassword'";
+        $chkUser = "SELECT * FROM `compusers` WHERE `uuid` = '$uuid' AND `password` =  '$encNewPassword'";
         $healthdb->prepare($chkUser);
         $resultUser = $healthdb->singleRecord();
 
         if ($resultUser) {
-            $query = "UPDATE `users` SET 
+            $query = "UPDATE `compusers` SET 
             `password` = :encrPassword,
             `updatedAt` = NOW()  
             WHERE `uuid` = :uuid";

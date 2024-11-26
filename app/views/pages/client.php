@@ -3,7 +3,7 @@ extract($data);
 $uuid = $clientDetails['uuid'];
 ?>
 
-<div class="content-body">
+		<div class="content-body">
             <div class="container-fluid">
                 <div class="page-titles">
 					<ol class="breadcrumb">
