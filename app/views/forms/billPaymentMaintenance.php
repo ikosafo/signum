@@ -6,7 +6,7 @@ $uuid = Tools::generateUUID();
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-                <h4 class="card-title">Rent Payment of <strong><?= $fullName ?></strong></h4>
+                <h4 class="card-title">Maintenance Payment of <strong><?= $fullName ?></strong></h4>
             </div>
             <div class="card-body">
                 <form id="needs-validation1" novalidate="" autocomplete="off">
@@ -20,19 +20,12 @@ $uuid = Tools::generateUUID();
 
                     <div class="row">
                         <div class="form-group col-md-4 col-sm-12">
-                            <label class="form-label required">Amount Paid</label>
-                            <input type="text" class="form-control" onkeypress="allowTwoDecimalPlaces(event)" id="amountPaid" placeholder="Enter Amount Paid" required>
+                            <label class="form-label">Amount Paid</label>
+                            <input type="text" class="form-control-plaintext" readonly onkeypress="allowTwoDecimalPlaces(event)" id="amountPaid" value="<?php echo Tools::getMaintenanceFee($clientid) ?>">
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
-                            <label class="form-label required">Bill Type</label>
-                            <select id="billType" class="default-select form-control wide" required>
-                                <option value="">Select Type</option>
-                                <option value="Rent">Rent</option>
-                                <option value="Maintenance">Maintenance</option>
-                                <option value="Service Charge">Service Charge</option>
-                                <option value="Utilities">Utilities</option>
-                                <option value="Other">Other</option>
-                            </select>
+                            <label class="form-label">Bill Type</label>
+                            <input type="text" class="form-control-plaintext" id="billType" readonly value="Maintenance">
                         </div>
                         <div class="form-group col-md-4 col-sm-12">
                             <label class="form-label required">Bill Date</label>
@@ -92,9 +85,7 @@ $uuid = Tools::generateUUID();
     $("#paymentStatus").select2({
         placeholder:"Select Status"
     });
-    $("#billType").select2({
-        placeholder:"Select Type"
-    });
+
 
     $("#saveRentDetails").on("click", function(event) {
         event.preventDefault(); 
@@ -129,9 +120,9 @@ $uuid = Tools::generateUUID();
                 });
             }
 
-            setTimeout(function() {
+           /*  setTimeout(function() {
                 location.reload();
-            }, 500);
+            }, 500); */
         };
 
         var validateRentForm = function(rentData) {

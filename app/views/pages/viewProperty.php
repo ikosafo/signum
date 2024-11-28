@@ -121,34 +121,16 @@ extract($data);
                                                         
                                                         <table class="check-tbl mb-2">
                                                             <tbody>
-                                                                <tr>
-                                                                    <td><strong>Bedrooms Available :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['numberRooms'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Rent Amount :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['rentAmount'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Deposited Amount :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['depositAmount'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Lease Period :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['leasePeriod'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Availability Date :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['availabilityDate'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Utilities Included :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['utilitiesIncluded'] ?></td>
-                                                                </tr>
-                                                                <tr>
-                                                                    <td><strong>Payment Frequency :</strong></td>
-                                                                    <td class="tb-para"><?= $propertyDetails['paymentFrequency'] ?></td>
-                                                                </tr>
+                                                                                                    <?php
+                                                                $no = 1; // Initialize a counter
+                                                                foreach ($listClientsProp as $result) { ?>
+                                                                    <tr>
+                                                                        <td><strong class="text-black"><?= $no++ ?></strong></td>
+                                                                        <td><?= $result->clientType ?></td>
+                                                                        <td><?= $result->fullName ?></td>
+                                                                    </tr>
+                                                                <?php } ?>
+                                                                
                                                             </tbody>
 
                                                         </table>

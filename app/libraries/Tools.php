@@ -298,6 +298,16 @@ class Tools extends tableDataObject{
     }
 
 
+    public static function lastOutstandingBillid($clientid) {
+        global $healthdb;
+
+        $query = "SELECT `billid` FROM `billing` WHERE `billType` = 'Maintenance' AND `paymentStatus` IS NULL AND `clientid` = '$clientid' ORDER BY billid LIMIT 1";
+        $healthdb->prepare($query);
+        $result = $healthdb->fetchColumn();
+        return $result;
+    }
+
+
     public static function getNamebyuuid($uuid) {
         global $healthdb;
 

@@ -209,6 +209,12 @@ class Pages extends Controller
         new Guard();
         $this->view("pages/billPayments");
     } 
+
+
+    public function billPaymentsMaintenance() {
+        new Guard();
+        $this->view("pages/billPaymentsMaintenance");
+    } 
     
 
     public function scheduleInspection() {
@@ -367,12 +373,14 @@ class Pages extends Controller
         $decryptedClientId = Tools::unlock($encryptedId);
         $propertyDetails = Properties::propertyDetails($decryptedClientId);
         $ownerDetails = Properties::ownerDetails($decryptedClientId);
+        $listClientsProp = Properties::listClientsProp($decryptedClientId);
         $uuid = $propertyDetails['uuid'];
 
         $this->view("pages/viewProperty",[
             'uuid' => $uuid,
             'propertyDetails' => $propertyDetails,
-            'ownerDetails' => $ownerDetails
+            'ownerDetails' => $ownerDetails,
+            'listClientsProp' => $listClientsProp
         ]);
     } 
 
@@ -383,7 +391,16 @@ class Pages extends Controller
         $this->view("pages/listProperties",[
             'listProperties' => $listProperties
         ]);
-    }  
+    } 
+    
+    
+    public function searchProperties() {
+        new Guard();
+        $listProperties = Properties::listProperties();
+        $this->view("pages/searchProperties",[
+            'listProperties' => $listProperties
+        ]);
+    } 
 
 
     public function listComplaints() {

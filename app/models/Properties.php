@@ -530,6 +530,16 @@ class Properties extends tableDataObject
     }
 
 
+    public static function listClientsProp($propertyId) {
+        global $healthdb;
+
+        $getList = "SELECT * FROM `clients` where `status` = 1 AND propertyid = '$propertyId' ORDER BY `createdAt` DESC, `updatedAt` DESC, fullName";
+        $healthdb->prepare($getList);
+        $resultList = $healthdb->resultSet();
+        return $resultList;
+    }
+
+
     public static function listRentDue($clientid) {
         global $healthdb;
 

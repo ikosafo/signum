@@ -210,6 +210,7 @@ $userPermissions = Tools::getUserPermissions($uuid);?>
 							</a>
 							<ul aria-expanded="false">
 								<li><a href="<?php echo URLROOT ?>/pages/billPayments">Record Rent Payment</a></li>
+								<li><a href="<?php echo URLROOT ?>/pages/billPaymentsMaintenance">Record Maintenance Payment</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/paymentHistory">Payment History</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billReports">Rent Due Reports</a></li>
 								<li><a href="<?php echo URLROOT ?>/pages/billInvoices">Generate Rent Invoices</a></li>

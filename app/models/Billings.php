@@ -4,7 +4,7 @@ class Billings extends tableDataObject
 {
     const TABLENAME = 'payments';
     
-    public static function saveBilling(
+    public static function saveBillingOld(
                         $amountPaid,
                         $billDate,
                         $billType,
@@ -17,6 +17,24 @@ class Billings extends tableDataObject
                         $clientid) {
 
         global $healthdb;
+
+        if ($billType === 'Maintenance') {
+            $lastOutstandingBillid = Tools::lastOutstandingBillid($clientid);
+            if ($lastOutstandingBillid) {
+                    
+                $updateRent = "UPDATE `billing`
+                SET `updatedAt` = NOW(),
+                `paymentStatus` = 'success'
+                WHERE `billid` = '$lastOutstandingBillid'";
+
+                $healthdb->prepare($updateRent);
+                $healthdb->execute();
+            }
+            else {
+                echo 2;
+                return;
+            }
+        }
             
         $getByUUID = "SELECT * FROM `payments` WHERE `uuid` = '$uuid'";
         $healthdb->prepare($getByUUID);
@@ -76,10 +94,64 @@ class Billings extends tableDataObject
             $healthdb->prepare($query);
             $healthdb->execute();
             echo 1;  // Successfully inserted
+
+           
         
         }
     
     }
+
+
+    public static function saveBilling($amountPaid,
+                        $billDate,
+                        $billType,
+                        $paymentMethod,
+                        $paymentStatus,
+                        $paymentDescription,
+                        $serialNumber,
+                        $uuid,
+                        $propertyid,
+                        $clientid) {
+        global $healthdb;
+    
+        // Handle maintenance bill updates
+        if ($billType === 'Maintenance') {
+            $lastOutstandingBillid = Tools::lastOutstandingBillid($clientid);
+            if ($lastOutstandingBillid) {
+                $updateRent = "UPDATE `billing` SET `updatedAt` = NOW(), `paymentStatus` = 'success' WHERE `billid` = '$lastOutstandingBillid'";
+                if (!$healthdb->execute($updateRent)) {
+                    echo "Failed to update maintenance bill.";
+                    return;
+                }
+            } else {
+                echo "No outstanding maintenance bill.";
+                return;
+            }
+        }
+    
+        // Check if payment exists
+        $getByUUID = "SELECT * FROM `payments` WHERE `uuid` = '$uuid'";
+        $existingPayment = $healthdb->singleRecord($getByUUID);
+    
+        if ($existingPayment) {
+            // Update payment
+            $query = "UPDATE `payments` SET `amountPaid` = '$amountPaid', `datePaid` = '$billDate', `updatedAt` = NOW(), 
+                      `paymentMethod` = '$paymentMethod', `billType` = '$billType', `paymentDescription` = '$paymentDescription', 
+                      `serialNumber` = '$serialNumber', `paymentStatus` = '$paymentStatus', 
+                      `propertyid` = '$propertyid', `clientid` = '$clientid' WHERE `uuid` = '$uuid'";
+            $result = $healthdb->execute($query);
+            echo $result ? "Payment updated successfully." : "Failed to update payment.";
+        } else {
+            // Insert payment
+            $query = "INSERT INTO `payments` (`amountPaid`, `datePaid`, `createdAt`, `paymentMethod`, `billType`, `paymentDescription`, 
+                      `serialNumber`, `paymentStatus`, `uuid`, `propertyid`, `clientid`, `receivedBy`) 
+                      VALUES ('$amountPaid', '$billDate', NOW(), '$paymentMethod', '$billType', '$paymentDescription', 
+                      '$serialNumber', '$paymentStatus', '$uuid', '$propertyid', '$clientid', 'Admin')";
+            $result = $healthdb->execute($query);
+            echo $result ? "Payment inserted successfully." : "Failed to insert payment.";
+        }
+    }
+    
 
     public static function paymentHistory() {
         global $healthdb;
